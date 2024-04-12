@@ -9,10 +9,16 @@ export const useEditor = () => {
 
   const curation_data = useState<Entity[]>("curation_data", () => []);
 
+  const startToEndList = useState<Entity[]>("startToEndList", () => []);
+
+  const selectedNodeStartToEndList = useState<Entity[]>("selectedNodeStartToEndList", () => []);
+
   return {
     content_state_api,
     annotation_result,
     curation_type_select,
-    curation_data
+    curation_data,
+    startToEndList,
+    selectedNodeStartToEndList,
   };
 };

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="./tei_all_ja.rng" type="application/xml"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="main">村川堅固洋行日記, March 1 - June 21, 1884</title>
+                <author>
+                    <persName>Brainard, David L.</persName>
+                    <orgName/>
+                </author>
+                <respStmt>
+                    <name>Text Markup Unit, Dartmouth College Library</name>
+                    <resp>Conversion to TEI P5 encoding.</resp>
+                </respStmt>
+                <respStmt>
+                    <persName subtype="direct">Laura J. Waterman</persName>
+                    <resp>Transcribed from the original manuscript</resp>
+                </respStmt>
+                <sponsor>Dartmouth College</sponsor>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <title type="main">David Brainard's Diary, March 1 - June 21, 1884</title>
+                    <title type="sub">A digital edition</title>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Trustees of Dartmouth College</publisher>
+                <address>
+                    <addrLine>Dartmouth College</addrLine>
+                    <addrLine>Hanover, NH 03755, USA</addrLine>
+                </address>
+                <idno type="ms-number">Mss 189</idno>
+                <idno type="doi">10.1349/ddlp.2550</idno>
+                <availability status="free">
+                    <p> Copyright © 2017 Trustees of Dartmouth College. Publicly accessible for
+                        non-commercial use: these pages may be freely searched and displayed, but
+                        permission must be received for subsequent distribution in print or
+                        electronically. Please see
+                        http://www.dartmouth.edu/~library/schcomm/copyright/rights.html for more
+                        information. </p>
+                </availability>
+                <date when="2017"/>
+            </publicationStmt>
+            <seriesStmt>
+                <title type="main"
+                    ><!-- FIX ME: Replace this comment with the Series name --></title>
+            </seriesStmt>
+            <notesStmt>
+                <note type="abstract"><!-- FIX ME: Add an abstract of the document here --></note>
+            </notesStmt>
+            <sourceDesc>
+                <msDesc>
+                    <msIdentifier>
+                        <country>USA</country>
+                        <region>New Hampshire</region>
+                        <settlement>Hanover</settlement>
+                        <repository>Rauner Special Collections Library, Dartmouth
+                            College.</repository>
+                        <collection>The Papers of David L. Brainard in the Dartmouth College
+                            Library</collection>
+                    </msIdentifier>
+                    <msContents>
+                        <msItem>
+                            <title type="main">David Brainard's Diary, March 1 - June 21,
+                                1884</title>
+                            <author>Brainard, David L.</author>
+                        </msItem>
+                    </msContents>
+                    <physDesc>
+                        <objectDesc>
+                            <p>Holograph</p>
+                        </objectDesc>
+                    </physDesc>
+                </msDesc>
+                <bibl type="source">
+                    <idno type="ms-number">Mss 189</idno>
+                    <note type="ms-location">Rauner Special Collections Library, Dartmouth
+                        College.</note>
+                </bibl>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>
+                    <!-- FIX ME: add project description --></p>
+            </projectDesc>
+            <editorialDecl n="4">
+                <p>Text conforms to "TEI in Libraries: Guidelines for Best Practices," level 4. </p>
+                <hyphenation>
+                    <p>End-of-line hyphenation has not been retained.</p>
+                </hyphenation>
+                <correction>
+                    <p>In some instances, the transcriber has supplied words omitted by the author
+                        and corrected spelling errors. Illegible text has been tagged, but no
+                        attempt has been made to transcribe or mark up crossed out words and
+                        phrases. </p>
+                </correction>
+                <normalization>
+                    <p>Abbreviated personal names have been expanded.</p>
+                </normalization>
+                <p>Punctuation marks retained as XML character data.</p>
+                <p>Data in the sourceDesc follows DACS and AACR2 rules.</p>
+            </editorialDecl>
+            <tagsDecl>
+                <namespace name="http://www.tei-c.org/ns/1.0">
+                    <tagUsage gi="div1">Numbered divs are used and disambiguated by use of the type
+                        attribute.</tagUsage>
+                </namespace>
+            </tagsDecl>
+            <refsDecl>
+                <p> The facs attribute of the pb element carries the root file name for the page
+                    image, minus its directory and file type suffix. The specific location and file
+                    type are supplied in an XSL stylesheet. </p>
+            </refsDecl>
+            <classDecl>
+                <taxonomy xml:id="lcsh">
+                    <bibl>Library of Congress Subject Headings (LCSH) </bibl>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
+        <profileDesc>
+            <creation>
+                <date from="1884-03-01" to="1884-06-21">March 1 - June 21, 1884</date>
+            </creation>
+            <langUsage>
+                <language ident="en">English</language>
+            </langUsage>
+            <particDesc>
+                <person role="writer">
+                    <persName>Brainard, David L.</persName>
+                </person>
+            </particDesc>
+            <textClass>
+                <keywords scheme="#lcsh">
+                    <term>Lady Franklin Bay Expedition (1881-1884)</term>
+                    <term>Arctic regions</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+        <revisionDesc>
+            <change>
+                <date when="2016-11-03"/>
+                <label>Transcription</label>
+                <name>Laura Waterman</name>
+            </change>
+            <change>
+                <date when="2017-02-15"/>
+                <label>Conversion to TEI</label>
+                <name>Maninder Rakhra</name>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <facsimile>
+        <graphic facs="手帳1_00001" url="手帳1_00001"/>
+        <graphic rend="recto" n="57" facs="手帳1_00057" url="手帳1_00057"/>
+        <graphic rend="recto" n="57" facs="手帳1_00058" url="手帳1_00058"/>
+        <graphic rend="recto" n="57" facs="手帳1_00059" url="手帳1_00059"/>
+    </facsimile>
+
+    <text type="journal">
+        <front>
+            <div1>
+                <head type="work-title"> 村川堅固洋行日記 手帳１<lb/>March 1 - June 21, 1884 </head>
+                <!--
+                <p> written at Camp Clay <lb/>Cape Sabine <lb/>Ellesmere Island </p>
+
+                <quote> Words written in these journals are inadequate to express or describe the
+                    horrors of our situation, and I doubt if any intellect is equal to a full
+                    comprehension of our circumstances unless having passed through a similar
+                    experience. </quote>
+                <bibl> - <author>Sgt. David Brainard</author>
+                </bibl>
+                <p>
+                    <note type="editorial" resp="mkr">Title page supplied by transcriber. All pages
+                        of the scanned journal are included, blank pages as well as those that were not
+                        transcribed. The transcription starts on page <ref target="#p73">73</ref> of the
+                        journal.</note>
+                </p>
+            -->
+            </div1>
+        </front>
+        <body>
+            <div1>
+                <pb facs="手帳1_00001"/>
+                <note type="general_note">Cover</note>
+
+            </div1>
+            
+            <div1 type="diaryentry" n="1884-03-01">
+                <pb xml:id="p57" type="recto" n="57" facs="手帳1_00057"/>
+                
+                <head><date when="1884-03-12">◎三月十二日</date> 月曜 <seg type="weather" ana="cloudy">曇</seg></head>
+                <p><lb/>朝食を終り、甲板に登れば、天薄く曇れり。船は<lb/>既に<placeName>コルフー島</placeName>の東岸に沿ひて馳せつつあり。<time when="09:00:00">午<lb/>前九時半</time>、予定より早く<placeName>コルフー</placeName>に着。<time>十時半</time>、<lb/>午餐を終わり、上陸す。不潔にして東洋風を<lb/>帯びたる小都なり。昨年見たる<placeName>アルジェー</placeName>を想起<lb/>す。王宮の前を過ぎ、<placeName>スピアナーダ［Laspianata］と称する公園</placeName><lb/>を過ぐ。左海中に旧要塞屹立す。風景頗る<lb/>可なり。<placeName>ニケフォロス通り［Strada Nikephoros］</placeName>といふ。市の重なる通<lb/>りを覧、<placeName>スピアナーダ</placeName>に帰り、海岸に沿ひて<lb/>歩むる。数町にして、<persName>メネクラテス［Menecrate］</persName>の墳墓に至り、<lb/>覧る。踵を返して、<placeName>スピアナーダ</placeName>に来たり。一珈琲店<lb/>に入り、トルコ流の珈琲をのみ、久々にて新聞<lb/>（ロンドンのスタンダード）を読む。世界問題は猶<lb/>アルヘシラス会議にして、一時独仏の確執により<lb/>共に行悩みたる同会議も、仏国は<orgName>モロッコ国立銀行</orgName><lb/>問題に於て独国に譲り、独国は警察問題<pb type="verso" n="58" facs="手帳1_00058"/><lb/>に関して仏国に譲り、十日の会議にて無事<lb/>落着すべしとあり。英国の国勢調査の結果<lb/>を覧るに大英帝国総人口は四億、母国は四千<lb/>万余。千八百六十一年以後の四十年間に英領地<lb/>の面積は四割を増したりとあり。英国未だ老い<lb/>ずと謂ふべし。<time>午後二時半</time>、海岸に帰り、前に<lb/>賃金を定めて上陸及帰船を任ぜし舟夫<lb/>定賃の二倍を要求し、然らざれば船を発<lb/>せずといふ。憤慨甚しと雖ども、已を得ず、之に<lb/>応じ、船に漕ぎ付けしむ。艇未だ船に着かざ<lb/>るに賃金を要求す。払はざれば船を付け<lb/>ずといふ。其理由は乗船後価を払はず<lb/>して去るを恐るるにあり。無礼も亦甚し。遂に<lb/>乗船後、之を払う。<time>午後四時</time>発すべかりし<lb/>船後れて、<time>六時</time>出帆。動揺稍強しと雖ども、<lb/>気分は爽快常の如し。因て思ふに人は常に順境に<lb/>あるは幸福なり。然れども、逆境に打勝つ力を備<lb/>ふるは更に幸福なることを。<date when="1905-03-13"><time>明朝六時半</time></date>、船<placeName>パト<lb/>ラス</placeName>に着き。直に上陸の予定なるを以て、<time>八時</time><lb/>就寝</p>
+                <table>
+                    <col>
+                        <row>
+                            <cell> 506.35 </cell>
+                            <cell></cell>
+                            <cell></cell>
+                            <cell></cell>
+                        </row>
+                        <row>
+                            <cell> 2.00 </cell>
+                            <cell> 上陸及ーー賃 </cell>
+                            <cell> 509.00 </cell>
+                            <cell></cell>
+                        </row>
+                        <row>
+                            <cell> 30 </cell>
+                            <cell> coffee </cell>
+                            <cell> 2.00 </cell>
+                            <cell> 船ーーーー </cell>
+                        </row>
+                        <row>
+                            <cell> 35 </cell>
+                            <cell>はーき</cell>
+                            <cell></cell>
+                            <cell></cell>
+                        </row>
+                        <row>
+                            <cell> 509.00 </cell>
+                            <cell></cell>
+                            <cell> 511.00 </cell>
+                            <cell></cell>
+                        </row>
+                    </col>
+                    <col></col>
+                </table>
+            </div1>
+
+            <div1 type="diaryentry" n="1884-03-01">
+                
+                <head><date when="1884-03-13">◎三月一三日</date> 火曜 <seg type="wheather" ana="sunny">晴</seg></head>
+                <p><lb/>午前五時、起床、結束。六時半、船、パトラスにつく。昨日<lb/>に懲り、土人と直接に関繁るすることを避け、船内<lb/>に来れる案内に万事を託して、上陸税関の調も<lb/>形式のみにてすみ、一両替店にて英貨五磅を<lb/>希貨百三十ドラクマに換へ、倉皇 オリンピア<lb/>行の汽車に搭ず。何者とも知れざる男仏語を<lb/>以て万事を周旋す。後にてオリンピア旅館の給<lb/>仕なることを知る 。ギリシアの汽車は狭軌にて我国<lb/>の汽車に似たり。遅きこと之に過ぐ。両側皆硝<lb/>子窓にて明なるは心地よし。葡萄畑、橄欖樹の<lb/>畑等単調なる海岸の野を馳せて、十一時半、<lb/>ピルゴス［Pyrgos］につき、乗り換え、幾くもなく発し、<lb/>零時半、オリンピアにつけば宿のオムニブス来り、<lb/>待てり。何れのホテルなるやを知らざれども之に<lb/>乗り行けば鉄道会社の建てたるグランドホテルに<lb/>着けたり。ホテルはオリンピア博物館に隣りし土<lb/>地。高燥眺望甚佳にして、此僻地にては予想外<pb type="verso" n="59" facs="手帳1_00059"/><lb/>なれども、価も亦一日十五フランとは予想外に不廉<lb/>なり。汽車中一個のオレンジ、二個の朝鮮飴に似<lb/>たる菓子及一斤の麭に飢を凌ぎたるのみにて、<lb/>空腹甚しきを以て、直に昼食を命じ、終りて、<lb/>写真器を携えてオリンピアの発掘地に至る。<lb/>ホテルより五、六町、クラデオス［Kladeos］河に架せる木橋を渡れ<lb/>ばクロノス［Kronos］丘の麓に断礎破柱の累々たるは、<lb/>是れぞ音にききし、オリンピアの趾なる。発掘<lb/>以後に植えし、松の既に延びて、颯々の声を<lb/>送ると其間に放養せる山羊の鈴の響との<lb/>外、絶えて耳に入るものなく、四方更に人影を<lb/>見ず。ローマのフォルム辺、案内者のうるさく<lb/>つけ廻るに比するときは最も愉快なり。ベデ<lb/>カーの記する如く、先づ背後の丘上に登りて、<lb/>全墟を概覧せしとせしも、松既に伸びて、目<lb/>を遮り、展望すべからず。乃ち降りて、所謂<lb/>アルチスを貫き反対の高處に昇りて展望<lb/>す。最も驚かるるはゼウス［ツォイス］祠の円柱の規模<lb/>の宏大なることなり。ヘラ神殿［ヘレイオン］は建築史上唯一<lb/>の資料。先づゼウス神殿［ツォイステムプル］、ヘラ神殿［ヘイレオン］を撮影<lb/>し、それよりヘラ神殿［へレイオン］、フィリッペイオン［フィリツペヨン］、ゼウス神殿［ツオステムプル］等、順<lb/>次に詳覧す。ゼウス神殿［ツォイス祠］の円柱の二、三本、地震に<lb/>て倒れたるが、其侭祠の南側にありて、円柱の高<lb/>さも明に之にて知らる。ゼウス神殿［ツォイス祠］の地盤を測るに<lb/>四歩四角厚さ半間位のを積み重ねあり。材<lb/>料はムッシェルカルク石［muschelkalkstein］ にて、大理石は多くロー<lb/>マ時代に至りて用ゐたるものなり。午後四時<lb/>半大に疲労せるを以て、帰宿。一杯のトルコ珈琲<lb/>に渇を医す。それより夜にかけベデカーよみ<lb/>て就寝。（以下、ドラクマ）</p>
+                    <table>
+                        <row>
+                            <cell> 4.25 </cell>
+                            <cell> 上陸及荷物運賃等 </cell>
+                        </row>
+                        <row>
+                            <cell> 50 </cell>
+                            <cell> 昼代等 </cell>
+                        </row>
+                        <row>
+                            <cell> 20 </cell>
+                            <cell> 荷物預賃 </cell>
+                        </row>
+                        <row>
+                            <cell> 511.00 </cell>
+                            <cell></cell>
+                        </row>
+                        <row>
+                            <cell> 515.95 </cell>
+                            <cell></cell>
+                        </row>
+                    </table>
+            </div1>
+        </body>
+    </text>
+</TEI>

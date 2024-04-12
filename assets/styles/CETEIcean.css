@@ -208,8 +208,10 @@ tei-cb:before {
   content: "[column break]";
 }
 tei-cell {
+  /*
   border-right: thin solid black;
   border-bottom: thin solid black;
+  */
   padding: 2px;
 }
 /* for cell or row with @role = label */
@@ -340,8 +342,9 @@ tei-gi:after {
 /* h */
 tei-head {
   display: block;
+  margin-top: 2em;
   font-family: Arvo, sans-serif;
-  font-weight: normal;
+  font-weight: bold;
 }
 tei-body > tei-head {
   font-size: 180%;
@@ -826,8 +829,11 @@ tei-tei {
 }
 tei-table {
   display: block;
+  /*
   border-top: thin solid black;
   border-left: thin solid black;
+  border-bottom: thin solid black;
+  */
 }
 tei-table {
   margin-top: 2em;
@@ -903,6 +909,10 @@ tei-witdetail {
   display:none;
 }
 
+tei-graphic {
+  display:none;
+}
+
 /* styles for HTML shell and HTML elements in TEI (e.g.,<a> and <img>) */
 /*
 html > body {
@@ -941,4 +951,11 @@ tei-supplied:after {
 
 tei-gap:before {
   content: "[---]";
+}
+tei-pb[n]:after{
+  display: none;
+}
+tei-head[type="work-title"]{
+  font-size: xx-large;
+  font-weight: bold;
 }

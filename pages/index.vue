@@ -10,6 +10,7 @@
   </v-app>
 -->
 <v-container fluid>
+  <!--{{startToEndList}}-->
     <v-row>
       <v-col cols="12" md="6">
         <div>
@@ -23,7 +24,7 @@
             >エッジを追加</v-btn
           >
           <v-btn @click="relateImage" class="ml-2 mt-2" color="green"
-            >画像とリンク</v-btn
+            >テクストとリンク</v-btn
           >
           <v-btn @click="editSelectedElement" class="ml-2 mt-2" color="blue"
             >更新</v-btn
@@ -80,7 +81,8 @@
         </div>
       </v-col>
       <v-col cols="12" md="6">
-        <ImageEditor />
+        <!--<ImageEditor />-->
+        <TextEditor />
       </v-col>
     </v-row>
   </v-container>
@@ -417,7 +419,7 @@ import { computed } from "vue";
 
 //const selectedAnnotationUri = computed(() => store.state.selectedAnnotationUri);
 
-const { content_state_api, annotation_result, curation_type_select, curation_data } = useEditor();
+const { content_state_api, annotation_result, curation_type_select, curation_data, startToEndList, selectedNodeStartToEndList } = useEditor();
 
 const activeTab = ref(null); // 最初のタブをデフォルトとしてアクティブにする
 
@@ -590,8 +592,19 @@ onMounted(() => {
   //cy.on('click', 'node, edge', (event) => {
   cy.on("click", "node", (event) => {
     const node = event.target;
+    console.log(node)
     const nodeId = node.id();
     const nodeShape = node.data("shape") || "unknown"; // shapeがない場合は'unknown'を使用
+
+    const selectedNodeStartEnd = [];
+    if (node.data("descriptionStart") && node.data("descriptionEnd")){
+      //console.log(node.data("descriptionStart"))
+      selectedNodeStartEnd.push(node.data("descriptionStart").split("#").slice(-1)[0]);
+      //console.log(node.data("descriptionEnd"))
+      selectedNodeStartEnd.push(node.data("descriptionEnd").split("#").slice(-1)[0]);
+      //console.log(selectedNodeStartEnd)
+      selectedNodeStartToEndList.value = selectedNodeStartEnd;
+    }
 
     deletingElement.value = event.target;
 
@@ -602,6 +615,7 @@ onMounted(() => {
       // ノードがすでに選択されている場合は削除
       selectedNodes.value.splice(nodeIndex, 1);
       node.removeClass("selected");
+      selectedNodeStartToEndList.value = [null,null];
     } else {
       // 新しいノードを選択する
       if (selectedNodes.value.length >= 2) {
@@ -763,6 +777,8 @@ const handleMouseover = (event, nodeData) => {
           key !== "label" &&
           key !== "shape" &&
           key !== "correspondingImage" &&
+          key !== "descriptionStart" &&
+          key !== "descriptionEnd" &&
           value
         ) {
           // キー名をラベルとして、値を表示
@@ -1270,7 +1286,17 @@ function convertToTurtle(nodes, edges, curations) {
       properties.push(
         `  <https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasVisualDescription> <${node.correspondingImage}>`
       );
-    }
+    };
+    if (node.descriptionStart) {
+      properties.push(
+        `  <https://junjun7613.github.io/MicroKnowledge/himiko.owl#descriptionStart> <${node.descriptionStart}>`
+      );
+    };
+    if (node.descriptionEnd) {
+      properties.push(
+        `  <https://junjun7613.github.io/MicroKnowledge/himiko.owl#descriptionEnd> <${node.descriptionEnd}>`
+      );
+    };
 
     // dataFieldsに基づいてノードの各プロパティを処理
     dataFields.value.forEach((field) => {
@@ -1620,7 +1646,8 @@ const relateImage = () => {
     let nodeId = selectedNode.id;
 
     let node = cy.getElementById(nodeId);
-    node.data("correspondingImage", content_state_api.value);
+    node.data("descriptionStart", startToEndList.value[0]);
+    node.data("descriptionEnd", startToEndList.value[1]);
   }
 };
 
