@@ -870,24 +870,9 @@ const showGraphData = () => {
     target: edge.data("target"),
   }));
 
-  const curations = [];
-  for (const curation of annotation_result.value) {
-    const item = {};
-    for (const key in curation) {
-      if (key == "@context") {
-      } else if ((key == "@id") | (key == "@type")) {
-        item[key.replace("@", "")] = curation[key];
-      } else {
-        item[key] = curation[key];
-      }
-    }
-    curations.push(item);
-  }
-
   graphData.value = {
     nodes,
     edges,
-    curations,
   };
 };
 
@@ -1229,24 +1214,9 @@ const downloadJson = () => {
     target: edge.data("target"),
   }));
 
-  const curations = [];
-  for (const curation of annotation_result.value) {
-    const item = {};
-    for (const key in curation) {
-      if (key == "@context") {
-      } else if ((key == "@id") | (key == "@type")) {
-        item[key.replace("@", "")] = curation[key];
-      } else {
-        item[key] = curation[key];
-      }
-    }
-    curations.push(item);
-  }
-
   const graphData = {
     nodes,
     edges,
-    curations,
   };
   const graphDataJson = JSON.stringify(graphData, null, 2);
   const blob = new Blob([graphDataJson], { type: "application/json" });
@@ -1259,7 +1229,7 @@ const downloadJson = () => {
 };
 
 //Turtleへの変換
-function convertToTurtle(nodes, edges, curations) {
+function convertToTurtle(nodes, edges) {
   let turtleData =
     "@prefix : <https://junjun7613.github.io/MicroKnowledge/himiko.owl#> .\n"; // ベースURIを定義
   //存在するprefixを記述
@@ -1327,84 +1297,12 @@ function convertToTurtle(nodes, edges, curations) {
     turtleData += `<${edge.source}> <${edge.type}> <${edge.target}> .\n`;
   });
 
-  curations.forEach((curation) => {
-    turtleData += `<${curation.id}> a <${curation.type}>`;
-    const properties = [];
-
-    console.log(curation);
-
-    /*
-    // 先に tags の処理を行う
-    if (
-      curation["https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasTag"]
-    ) {
-      const tagsString =
-        curation[
-          "https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasTag"
-        ][0];
-      const tags = tagsString.split(",");
-      console.log(tags);
-      for (const tag of tags) {
-        properties.push(
-          `  <https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasTag> "${tag}"`
-        );
-      }
-    }
-    */
-    /*
-    for (const key in curation) {
-      if (
-        key != "id" &&
-        key != "type" &&
-        key != "https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasTag"
-      ) {
-        if (
-          key ==
-          "https://junjun7613.github.io/MicroKnowledge/himiko.owl#referencesEntity"
-        ) {
-          properties.push(`  <${key}> <${curation[key]}>`);
-        } else {
-          properties.push(`  <${key}> "${curation[key]}"`);
-        }
-      }
-    }
-    */
-
-    // dataFieldsに基づいてノードの各プロパティを処理
-    dataFields.value.forEach((field) => {
-      console.log(field);
-      const value = curation[field.model];
-      if (value != null) {
-        const object = field.type === "uri" ? `<${value}>` : `"${value}"`; // 目的語の型に応じてフォーマット
-        properties.push(`  <${field.id}> ${object}`);
-      }
-    });
-
-    // 最初の述語の後にpropertiesがあればセミコロンを追加
-    if (properties.length > 0) {
-      turtleData += ";\n";
-    }
-    // 各プロパティをセミコロンで終わらせ、最後のプロパティにはピリオドを付ける
-    properties.forEach((prop, index) => {
-      if (index < properties.length - 1) {
-        turtleData += prop + ";\n";
-      } else {
-        turtleData += prop + ".\n";
-      }
-    });
-
-    // プロパティがない場合はピリオドを追加
-    if (properties.length === 0) {
-      turtleData += ".\n";
-    }
-  });
-
   return turtleData;
 }
 
 //Turtleファイルのダウンロード
-function downloadTurtleFile(nodes, edges, curations) {
-  const turtleData = convertToTurtle(nodes, edges, curations);
+function downloadTurtleFile(nodes, edges) {
+  const turtleData = convertToTurtle(nodes, edges);
   const blob = new Blob([turtleData], { type: "text/turtle" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -1444,22 +1342,8 @@ const downloadTurtle = () => {
     type: edge.data("type"),
   }));
 
-  const curationsData = [];
-  for (const curation of annotation_result.value) {
-    const item = {};
-    for (const key in curation) {
-      if (key == "@context") {
-      } else if ((key == "@id") | (key == "@type")) {
-        item[key.replace("@", "")] = curation[key];
-      } else {
-        item[key] = curation[key];
-      }
-    }
-    curationsData.push(item);
-  }
-
   //console.log(nodesData)
-  downloadTurtleFile(nodesData, edgesData, curationsData);
+  downloadTurtleFile(nodesData, edgesData);
 };
 
 const handleGraphFileUpload = (event) => {
