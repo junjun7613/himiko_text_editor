@@ -81,7 +81,6 @@
         </div>
       </v-col>
       <v-col cols="12" md="6">
-        <!--<ImageEditor />-->
         <TextEditor />
       </v-col>
     </v-row>
@@ -392,9 +391,6 @@
   </v-dialog>
 </template>
 <script setup>
-//import ImageDrop from '@/components/ImageTextDrop.vue';
-import ImageTextDrop from "@/components/ImageTextDrop.vue";
-import ImageEditor from "@/components/ImageEditor.vue";
 import { ref, watch } from "vue";
 import cytoscape from "cytoscape";
 import Treeselect from "vue3-treeselect";
