@@ -31,13 +31,6 @@ const items = [
     path: "/",
     //icon: 'mdi-numeric-2'
   },
-  /*
-  {
-    title: "Editor",
-    path: "/link03cyto",
-    //icon: 'mdi-numeric-2'
-  },
-  */
   {
     title: "Help",
     path: "/help",
