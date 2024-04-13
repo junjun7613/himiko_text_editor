@@ -355,9 +355,11 @@
             <div v-for="field in nodeFields" :key="field.model">
               <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
               <v-text-field
+                density="compact"
                 :type="field.type"
                 :label="field.label"
                 :required="field.required"
+                variant="outlined"
                 v-model="editableFactoidData[field.model]"
               ></v-text-field>
             </div>
@@ -415,12 +417,14 @@
               ></v-text-field>
             </div>
             <div v-for="field in entityFields" :key="field.model">
-              <h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>
+              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
               <v-text-field
+                density="compact"
                 :type="field.type"
                 :label="field.label"
                 :required="field.required"
                 v-model="editableEntityData[field.model]"
+                variant="outlined"
               ></v-text-field>
             </div>
           </v-card-text>
@@ -1343,12 +1347,17 @@ function convertToTurtle(nodes, edges) {
     };
 
     // dataFieldsに基づいてノードの各プロパティを処理
+    const processedModels = new Set(); // 重複を避けるためのセット
     dataFields.value.forEach((field) => {
       console.log(field);
-      const value = node[field.model];
-      if (value != null) {
-        const object = field.type === "uri" ? `<${value}>` : `"${value}"`; // 目的語の型に応じてフォーマット
-        properties.push(`  <${field.id}> ${object}`);
+      if (!processedModels.has(field.model)) {
+        // まだ処理されていないモデルの場合
+        processedModels.add(field.model);
+        const value = node[field.model];
+        if (value != null) {
+          const object = field.type === "uri" ? `<${value}>` : `"${value}"`; // 目的語の型に応じてフォーマット
+          properties.push(`  <${field.id}> ${object}`);
+        }
       }
     });
 
