@@ -99,7 +99,7 @@
         <v-col sm="12">
           <v-card-text>
             <div>
-              <h3>ID情報を入力</h3>
+              <!--<h3 style="margin-bottom: 20xp;">ID情報を入力</h3>-->
               <treeselect
                 :multiple="false"
                 :options="prefixes"
@@ -108,37 +108,43 @@
                 class="mb-4"
               />
               <v-text-field
+                density="compact"
                 v-model="nodeId"
                 label="ID(何も入力しなければUUID)"
+                variant="outlined"
                 required
               ></v-text-field>
             </div>
             <div>
-              <h3>タイプを入力</h3>
+              <!--<h3 style="margin-bottom: 5xp;">タイプを入力</h3>-->
               <!--<v-text-field v-model="nodeType" label="ノードタイプ" required></v-text-field>-->
               <treeselect
                 :multiple="false"
                 :options="nodeTypeSelect"
-                placeholder="Factoid type..."
+                placeholder="ファクトイドのタイプを入力"
                 v-model="nodeType"
                 class="mb-4"
               />
             </div>
             <div>
-              <h3>ラベルを入力</h3>
+              <!--<h3 style="margin-bottom: 5xp;">ラベルを入力</h3>-->
               <v-text-field
+                density="compact"
                 v-model="labelInput"
-                label="ラベル"
+                label="ラベルを入力"
+                variant="outlined"
                 required
               ></v-text-field>
             </div>
             <div v-for="field in nodeFields" :key="field.model">
-              <h3>{{ field.title }}</h3>
+              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
               <v-text-field
+                density="compact"
                 :type="field.type"
                 :label="field.label"
                 :required="field.required"
                 v-model="factoidData[field.model]"
+                variant="outlined"
               ></v-text-field>
             </div>
           </v-card-text>
@@ -166,7 +172,7 @@
         <v-col sm="12">
           <v-card-text>
             <div>
-              <h3>IDを入力</h3>
+              <!--<h3 style="margin-bottom: 5xp;">IDを入力</h3>-->
               <treeselect
                 :multiple="false"
                 :options="prefixes"
@@ -175,30 +181,35 @@
                 class="mb-4"
               />
               <v-text-field
+                density="compact"
                 v-model="entityId"
-                label="Core ID"
+                label="IDを入力（何も入力しなければUUID）"
                 required
+                variant="outlined"
               ></v-text-field>
             </div>
             <div>
-              <h3>タイプを入力</h3>
+              <!--<h3 style="margin-bottom: 5xp;">タイプを入力</h3>-->
               <!--<v-text-field v-model="nodeType" label="ノードタイプ" required></v-text-field>-->
               <treeselect
                 :multiple="false"
                 :options="entityTypeSelect"
-                placeholder="Entity type..."
+                placeholder="エンティティのタイプを入力"
                 v-model="entityType"
                 class="mb-4"
               />
             </div>
             <div>
-              <h3>ラベルを入力</h3>
+              <!--<h3 style="margin-bottom: 5xp;">ラベルを入力</h3>-->
               <v-text-field
+                density="compact"
                 v-model="labelInput"
-                label="ラベル"
+                label="ラベルを入力"
+                variant="outlined"
                 required
               ></v-text-field>
             </div>
+            <!--
             <div v-for="field in entityFields" :key="field.model">
               <h3>{{ field.title }}</h3>
               <v-text-field
@@ -208,12 +219,48 @@
                 v-model="entityData[field.model]"
               ></v-text-field>
             </div>
+            -->
           </v-card-text>
         </v-col>
       </v-row>
       <v-card-actions>
         <v-btn color="blue darken-1" text @click="showEntityModal = false"
           >キャンセル</v-btn
+        >
+        <v-btn color="blue darken-1" text @click="createEntityDataModal">データ入力へ</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <!-- エンティティ・データ作成用モーダル -->
+  <v-dialog
+    v-model="showEntityDataModal"
+    persistent
+    max-width="500px"
+    max-height="600px"
+  >
+    <v-card>
+      <v-card-title>エンティティ・データの入力</v-card-title>
+      <v-row>
+        <v-col sm="12">
+          <v-card-text>
+            <div v-for="field in filteredEntityFields" :key="field.model">
+              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
+              <v-text-field
+                density="compact"
+                :type="field.type"
+                :label="field.label"
+                :required="field.required"
+                v-model="entityData[field.model]"
+                variant="outlined"
+              ></v-text-field>
+            </div>
+          </v-card-text>
+        </v-col>
+      </v-row>
+      <v-card-actions>
+        <v-btn color="blue darken-1" text @click="backToEntityDialog()"
+          >戻る</v-btn
         >
         <v-btn color="blue darken-1" text @click="addEntity">作成</v-btn>
       </v-card-actions>
@@ -230,7 +277,14 @@
     <v-card height="600px">
       <v-card-title>エッジの作成</v-card-title>
       <v-card-text>
-        <v-text-field v-model="edgeId" label="エッジID" required></v-text-field>
+        <v-text-field 
+          density="compact"
+          v-model="edgeId" 
+          label="エッジID" 
+          variant="outlined"
+          required
+          >
+        </v-text-field>
         <!--<v-text-field v-model="edgeType" label="エッジタイプ" required></v-text-field>-->
         <div
           v-if="
@@ -278,19 +332,28 @@
       <v-row>
         <v-col sm="12">
           <v-card-text>
+            <!--
             <div>
-              <h3>タイプを入力</h3>
-              <!--<v-text-field v-model="nodeType" label="ノードタイプ" required></v-text-field>-->
+              <h3 style="margin-bottom: 5xp;">タイプを入力</h3>
               <treeselect
                 :multiple="false"
                 :options="nodeTypeSelect"
-                placeholder="Factoid type..."
+                placeholder="ファクトイドのタイプを入力"
                 v-model="editedNodeType"
                 class="mb-4"
               />
             </div>
+            -->
+            <div>
+              <v-text-field
+                density="compact"
+                label="ラベルの編集"
+                v-model="editedLabelInput"
+                variant="outlined"
+              ></v-text-field>
+            </div>
             <div v-for="field in nodeFields" :key="field.model">
-              <h3>{{ field.title }}</h3>
+              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
               <v-text-field
                 :type="field.type"
                 :label="field.label"
@@ -331,9 +394,9 @@
       <v-row>
         <v-col sm="12">
           <v-card-text>
+            <!--
             <div>
               <h3>タイプを入力</h3>
-              <!--<v-text-field v-model="nodeType" label="ノードタイプ" required></v-text-field>-->
               <treeselect
                 :multiple="false"
                 :options="entityTypeSelect"
@@ -342,8 +405,17 @@
                 class="mb-4"
               />
             </div>
+          -->
+            <div>
+              <v-text-field
+                density="compact"
+                label="ラベルの編集"
+                v-model="editedLabelInput"
+                variant="outlined"
+              ></v-text-field>
+            </div>
             <div v-for="field in entityFields" :key="field.model">
-              <h3>{{ field.title }}</h3>
+              <h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>
               <v-text-field
                 :type="field.type"
                 :label="field.label"
@@ -435,6 +507,7 @@ const factoidData = ref({});
 const curationData = ref({});
 
 const entityFields = ref([]);
+const filteredEntityFields = ref([]);
 const nodeFields = ref([]);
 const curationFields = ref([]);
 const dataFields = ref([]);
@@ -447,6 +520,7 @@ const selectedNodes = ref([]);
 const selectedEdges = ref([]);
 const showNodeModal = ref(false);
 const showEntityModal = ref(false);
+const showEntityDataModal = ref(false);
 const showEdgeModal = ref(false);
 const prefixSelect = ref(null);
 const nodeId = ref(null);
@@ -702,6 +776,7 @@ for (const i in origEntityData.value) {
     label: origEntityData.value[i]["label"],
     model: origEntityData.value[i]["model"],
     type: origEntityData.value[i]["type"],
+    attachedType: origEntityData.value[i]["attachedType"],
     id: origEntityData.value[i]["id"],
     required: true,
   };
@@ -983,6 +1058,9 @@ const addEntity = () => {
     // 必要な場合はエラーメッセージを表示
     console.error("ノードID、タイプ、ラベルを入力してください。");
   }
+
+  showEntityDataModal.value = false;
+  filteredEntityFields.value = [];
 };
 
 // エッジ作成用のメソッド
@@ -1479,6 +1557,7 @@ const updateSettings = (type, data) => {
           label: item["label"],
           model: item["model"],
           type: item["type"],
+          attachedType: item["attachedType"],
           id: item["id"],
           required: true,
         };
@@ -1530,6 +1609,28 @@ const relateImage = () => {
     node.data("descriptionEnd", startToEndList.value[1]);
   }
 };
+
+const createEntityDataModal = () => {
+  const entityTypeValue = entityType.value
+  const newEntityFields = []
+  console.log(entityFields.value)
+  for (const field of entityFields.value){
+    //console.log(field)
+    //if (field.attachedType == entityTypeValue){
+    if (field.attachedType.includes(entityTypeValue)){
+      newEntityFields.push(field)
+    }
+  };
+  console.log(newEntityFields)
+  filteredEntityFields.value = newEntityFields;
+  showEntityModal.value = false;
+  showEntityDataModal.value = true;
+}
+
+const backToEntityDialog = () => {
+  showEntityDataModal.value = false;
+  showEntityModal.value = true;
+}
 
 // その他の関数
 </script>
