@@ -298,40 +298,6 @@ function highlightSelection() {
         <div id="tei" v-html="teiHTML" style="width: 100%; height: 650px;" @mouseup="getSelectionRange"/>
         <!--<div id="tei" v-html="teiHTML" style="width: 100%; height: 650px;" @mouseup="highlightSelection"/>-->
       </div>
-  
-      <v-dialog v-model="dialog" width="600px">
-        <v-card>
-          <v-card-title>フォーム</v-card-title>
-          <v-card-text>
-            <treeselect
-              :multiple="false"
-              :options="curationTypeSelect"
-              v-model="valueType"
-              placeholder="Type"
-              class="mb-4"
-            ></treeselect>
-            <div v-for="field in curationFields" :key="field.model">
-                <h3>{{ field.title }}</h3>
-                <v-text-field
-                  :type="field.type"
-                  :label="field.label"
-                  :required="field.required"
-                  v-model="curationData[field.model]"
-                ></v-text-field>
-            </div>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn varinat="flat" @click="dialog = false">キャンセル</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="error" varinat="flat" @click="deleteAnnotation"
-              >削除</v-btn
-            >
-            <v-btn color="primary" varinat="flat" @click="createAnnotation"
-              >作成</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </client-only>
   </template>
   <style>

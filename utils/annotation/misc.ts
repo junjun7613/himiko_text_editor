@@ -203,33 +203,6 @@ const defaultEdgeTypeSelect = [
     }
 ];
 
-const defaultCurationTypeSelect = [
-    {
-        "id": "https://junjun7613.github.io/MicroKnowledge/himiko.owl#PersonReference",
-        "label": "Person",
-    },
-    {
-        "id": "https://junjun7613.github.io/MicroKnowledge/himiko.owl#OrgReference",
-        "label": "Organization",
-    },
-    {
-        "id": "https://junjun7613.github.io/MicroKnowledge/himiko.owl#PlaceReference",
-        "label": "Place",
-    },
-    {
-        "id": "https://junjun7613.github.io/MicroKnowledge/himiko.owl#DateReference",
-        "label": "Date",
-    },
-    {
-        "id": "https://junjun7613.github.io/MicroKnowledge/himiko.owl#PhysicalObjReference",
-        "label": "Physical object",
-    },
-    {
-        "id": "https://junjun7613.github.io/MicroKnowledge/himiko.owl#ConceptualObjReference",
-        "label": "Conceptual object",
-    }
-];
-
 const defaultFactoidRelationSelect = [
     {
         "label": "Because",
@@ -256,6 +229,7 @@ const defaultEntityData = [
         label: "External URI", 
         model: "externalURIInput", 
         type: "uri", 
+        attachedType: ["https://junjun7613.github.io/MicroKnowledge/himiko.owl#PersonReference"],
         id: "https://junjun7613.github.io/MicroKnowledge/himiko.owl#referencesEntity" 
     },
 ]
@@ -279,25 +253,6 @@ const defaultNodeData = [
     */
 ]
 
-const defaultCurationData = [
-    /*
-    { 
-        title: "翻刻", 
-        label: "Transcription", 
-        model: "transcription", 
-        type: "uri", 
-        id: "https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasTranscriotion" 
-    },
-    */
-    { 
-        title: "コメント", 
-        label: "Comment", 
-        model: "comment", 
-        type: "text", 
-        id: "https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasComment" 
-    },
-]
-
 // エクスポート
 export {
     defaultPrefixes,
@@ -305,9 +260,7 @@ export {
     defaultNodeTypeSelect,
     defaultEntityTypeSelect,
     defaultEdgeTypeSelect,
-    defaultCurationTypeSelect,
     defaultFactoidRelationSelect,
     defaultEntityData,
     defaultNodeData,
-    defaultCurationData,
 };

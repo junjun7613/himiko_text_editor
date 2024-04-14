@@ -99,7 +99,7 @@
         <v-col sm="12">
           <v-card-text>
             <div>
-              <!--<h3 style="margin-bottom: 20xp;">ID情報を入力</h3>-->
+              <h3 class="input-title">ID情報を入力</h3>
               <treeselect
                 :multiple="false"
                 :options="prefixes"
@@ -116,7 +116,7 @@
               ></v-text-field>
             </div>
             <div>
-              <!--<h3 style="margin-bottom: 5xp;">タイプを入力</h3>-->
+              <h3  class="input-title">タイプを選択</h3>
               <!--<v-text-field v-model="nodeType" label="ノードタイプ" required></v-text-field>-->
               <treeselect
                 :multiple="false"
@@ -127,7 +127,7 @@
               />
             </div>
             <div>
-              <!--<h3 style="margin-bottom: 5xp;">ラベルを入力</h3>-->
+              <h3 class="input-title">ラベルを入力</h3>
               <v-text-field
                 density="compact"
                 v-model="labelInput"
@@ -137,7 +137,7 @@
               ></v-text-field>
             </div>
             <div v-for="field in nodeFields" :key="field.model">
-              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
+              <h3 class="input-title">{{ field.title }}</h3>
               <v-text-field
                 density="compact"
                 :type="field.type"
@@ -172,7 +172,7 @@
         <v-col sm="12">
           <v-card-text>
             <div>
-              <!--<h3 style="margin-bottom: 5xp;">IDを入力</h3>-->
+              <h3 class="input-title">IDを入力</h3>
               <treeselect
                 :multiple="false"
                 :options="prefixes"
@@ -189,7 +189,7 @@
               ></v-text-field>
             </div>
             <div>
-              <!--<h3 style="margin-bottom: 5xp;">タイプを入力</h3>-->
+              <h3 class="input-title">タイプを選択</h3>
               <!--<v-text-field v-model="nodeType" label="ノードタイプ" required></v-text-field>-->
               <treeselect
                 :multiple="false"
@@ -200,7 +200,7 @@
               />
             </div>
             <div>
-              <!--<h3 style="margin-bottom: 5xp;">ラベルを入力</h3>-->
+              <h3 class="input-title">ラベルを入力</h3>
               <v-text-field
                 density="compact"
                 v-model="labelInput"
@@ -245,7 +245,7 @@
         <v-col sm="12">
           <v-card-text>
             <div v-for="field in filteredEntityFields" :key="field.model">
-              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
+              <h3 class="input-title">{{ field.title }}</h3>
               <v-text-field
                 density="compact"
                 :type="field.type"
@@ -353,7 +353,7 @@
               ></v-text-field>
             </div>
             <div v-for="field in nodeFields" :key="field.model">
-              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
+              <h3 class="input-title">{{ field.title }}</h3>
               <v-text-field
                 density="compact"
                 :type="field.type"
@@ -417,7 +417,7 @@
               ></v-text-field>
             </div>
             <div v-for="field in entityFields" :key="field.model">
-              <!--<h3 style="margin-bottom: 5xp;">{{ field.title }}</h3>-->
+              <h3 class="input-title">{{ field.title }}</h3>
               <v-text-field
                 density="compact"
                 :type="field.type"
@@ -480,8 +480,6 @@ import {
   defaultFactoidRelationSelect,
   defaultEntityData,
   defaultNodeData,
-  defaultCurationTypeSelect,
-  defaultCurationData,
 } from "~/utils/annotation/misc";
 import { createPopper } from "@popperjs/core";
 import { computed } from "vue";
@@ -491,7 +489,7 @@ import { computed } from "vue";
 
 //const selectedAnnotationUri = computed(() => store.state.selectedAnnotationUri);
 
-const { content_state_api, annotation_result, curation_type_select, curation_data, startToEndList, selectedNodeStartToEndList } = useEditor();
+const { content_state_api, annotation_result, startToEndList, selectedNodeStartToEndList } = useEditor();
 
 const activeTab = ref(null); // 最初のタブをデフォルトとしてアクティブにする
 
@@ -503,17 +501,13 @@ const edgeTypeSelect = ref(defaultEdgeTypeSelect);
 const factoidRelationSelect = ref(defaultFactoidRelationSelect);
 const origEntityData = ref(defaultEntityData);
 const origNodeData = ref(defaultNodeData);
-const curationTypeSelect = ref(defaultCurationTypeSelect);
-const origCurationData = ref(defaultCurationData);
 
 const entityData = ref({});
 const factoidData = ref({});
-const curationData = ref({});
 
 const entityFields = ref([]);
 const filteredEntityFields = ref([]);
 const nodeFields = ref([]);
-const curationFields = ref([]);
 const dataFields = ref([]);
 
 const cyElement = ref(null);
@@ -806,26 +800,9 @@ for (const i in origNodeData.value) {
 //console.log(entityFields.value);
 console.log(factoidData.value);
 
-//curaionDataにdefaultCurationDataからデータ挿入
-for (const i in origCurationData.value) {
-  console.log(origCurationData.value[i]);
-  curationData.value[origCurationData.value[i]["model"]] = "";
-  const field = {
-    title: origCurationData.value[i]["title"],
-    label: origCurationData.value[i]["label"],
-    model: origCurationData.value[i]["model"],
-    type: origCurationData.value[i]["type"],
-    id: origCurationData.value[i]["id"],
-    required: true,
-  };
-  curationFields.value.push(field);
-}
-//console.log(entityFields.value);
-console.log(curationData.value);
-
 //entityFieldsとnodeFieldsを結合して、dataFieldsを作っておく。（Turtle作成の際に使用）
 const entityNodeFields = entityFields.value.concat(nodeFields.value);
-dataFields.value = entityNodeFields.concat(curationFields.value);
+dataFields.value = entityNodeFields
 console.log(dataFields.value)
 
 // ノードにマウスオーバーしたときの処理
@@ -1512,8 +1489,6 @@ const handleNodeTypeSelectFileUpload = (event) =>
   handleFileUpload(event, "NodeTypeSelect");
 const handleEntityTypeSelectFileUpload = (event) =>
   handleFileUpload(event, "EntityTypeSelect");
-const handleCurationTypeSelectFileUpload = (event) =>
-  handleFileUpload(event, "CurationTypeSelect");
 const handleEdgeTypeSelectFileUpload = (event) =>
   handleFileUpload(event, "EdgeTypeSelect");
 
@@ -1548,9 +1523,6 @@ const updateSettings = (type, data) => {
       break;
     case "EdgeTypeSelect":
       edgeTypeSelect.value = data["data"];
-      break;
-    case "CurationTypeSelect":
-      curation_type_select.value = data["data"];
       break;
     case "FactoidRelationSelect":
       factoidRelationSelect.value = data["data"];
@@ -1593,15 +1565,11 @@ const updateSettings = (type, data) => {
       });
       updateDataFields();
       break;
-    case "CurationData":
-      curation_data.value = data["data"];
-      updateDataFields();
-      break;
   }
 };
 
 const updateDataFields = () => {
-  dataFields.value = [...entityFields.value, ...nodeFields.value, ...curationFields.value];
+  dataFields.value = [...entityFields.value, ...nodeFields.value];
 };
 
 //ノードと画像をリンクする処理
@@ -1758,5 +1726,12 @@ const backToEntityDialog = () => {
   overflow: auto; /* スクロール可能にする */
   border: 1px solid #ccc; /* 枠線を追加 */
   padding: 10px; /* 内容と枠線の間の余白 */
+}
+
+.input-title {
+  text-align: center;
+  opacity: 0.7;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
