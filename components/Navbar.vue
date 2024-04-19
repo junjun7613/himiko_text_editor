@@ -8,6 +8,9 @@
 				<li class="mr-4">
 					<nuxt-link to="/help">Help</nuxt-link>
 				</li>
+				<li class="mr-4">
+					<nuxt-link to="/setting">Setting</nuxt-link>
+				</li>
 			</ul>
 		</nav>
 	</div>

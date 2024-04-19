@@ -228,7 +228,7 @@ const defaultEntityData = [
         title: "外部URIを入力", 
         label: "External URI", 
         model: "externalURIInput", 
-        type: "uri", 
+        type: "url", 
         attachedType: ["https://junjun7613.github.io/MicroKnowledge/himiko.owl#PersonReference"],
         id: "https://junjun7613.github.io/MicroKnowledge/himiko.owl#referencesEntity" 
     },

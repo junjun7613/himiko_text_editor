@@ -36,6 +36,11 @@ const items = [
     path: "/help",
     //icon: 'mdi-numeric-2'
   },
+  {
+    title: "Setting",
+    path: "/setting",
+    //icon: 'mdi-numeric-2'
+  },
 ];
 // ナビゲーションの表示・非表示を制御
 const drawer = useState("drawer", () => false);

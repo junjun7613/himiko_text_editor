@@ -1332,8 +1332,15 @@ function convertToTurtle(nodes, edges) {
         processedModels.add(field.model);
         const value = node[field.model];
         if (value != null) {
-          const object = field.type === "uri" ? `<${value}>` : `"${value}"`; // 目的語の型に応じてフォーマット
-          properties.push(`  <${field.id}> ${object}`);
+          //const object = field.type === "uri" ? `<${value}>` : `"${value}"`; // 目的語の型に応じてフォーマット
+          if (field.type === "uri") {
+            properties.push(`  <${field.id}> <${value}>`);
+          } else if (field.type === "number") {
+            properties.push(`  <${field.id}> ${Number(value)}`);
+          } else {
+            properties.push(`  <${field.id}> "${value}"`);
+          }
+          //properties.push(`  <${field.id}> ${object}`);
         }
       }
     });
