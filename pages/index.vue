@@ -1292,6 +1292,8 @@ function convertToTurtle(nodes, edges) {
   let turtleData =
     "@prefix : <https://junjun7613.github.io/MicroKnowledge/himiko.owl#> .\n"; // ベースURIを定義
   //存在するprefixを記述
+  turtleData += "@prefix class: <https://junjun7613.github.io/MicroKnowledge/class/> .\n";
+  turtleData += "@prefix property: <https://junjun7613.github.io/MicroKnowledge/property/> .\n";
   prefixes.value.forEach((prefix) => {
     turtleData += `@prefix ${prefix["label"]}: <${prefix["id"]}> .\n`;
   });
@@ -1331,7 +1333,7 @@ function convertToTurtle(nodes, edges) {
         // まだ処理されていないモデルの場合
         processedModels.add(field.model);
         const value = node[field.model];
-        if (value != null) {
+        if (value != "" && value != null) {
           //const object = field.type === "uri" ? `<${value}>` : `"${value}"`; // 目的語の型に応じてフォーマット
           if (field.type === "uri") {
             properties.push(`  <${field.id}> <${value}>`);

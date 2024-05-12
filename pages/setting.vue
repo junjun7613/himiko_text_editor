@@ -194,7 +194,7 @@
                             </v-col>
                             <v-col cols="12" md="2">
                                 <treeselect
-                                    :multiple="false"
+                                    :multiple="true"
                                     :options="entityTypes"
                                     placeholder="対象タイプを選択"
                                     v-model="row.attachedType"
