@@ -9,10 +9,19 @@ export const useEditor = () => {
 
   const selectedNodeStartToEndList = useState<Entity[]>("selectedNodeStartToEndList", () => []);
 
+  const clickedEntityObject = useState<Entity[]>("clickedEntity", () => []);
+
+  const clickedNode = useState<Entity[]>("clickedNodeLabel", () => []);
+
+  const uploadedNodes = useState<Entity[]>("uploadedNodes", () => []);
+
   return {
     content_state_api,
     annotation_result,
     startToEndList,
     selectedNodeStartToEndList,
+    clickedEntityObject,
+    clickedNode,
+    uploadedNodes,
   };
 };

@@ -9,6 +9,7 @@
     </v-content>
   </v-app>
 -->
+<!--{{clickedEntityObject}}-->
 <v-container fluid>
   <!--{{startToEndList}}-->
     <v-row>
@@ -465,6 +466,7 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+
 </template>
 <script setup>
 import { ref, watch } from "vue";
@@ -489,7 +491,7 @@ import { computed } from "vue";
 
 //const selectedAnnotationUri = computed(() => store.state.selectedAnnotationUri);
 
-const { content_state_api, annotation_result, startToEndList, selectedNodeStartToEndList } = useEditor();
+const { content_state_api, annotation_result, startToEndList, selectedNodeStartToEndList, clickedEntityObject, clickedNode, uploadedNodes } = useEditor();
 
 const activeTab = ref(null); // 最初のタブをデフォルトとしてアクティブにする
 
@@ -565,13 +567,37 @@ const updateGraphDataWithAnnotation = () => {
   // 例えば、cytoscape.jsを利用している場合、グラフのノードやエッジを追加・更新する処理をここに書きます。
 };
 
+const updateNodeTextLink = () => {
+  console.log("clickedEntityObjectが更新されました。", clickedEntityObject.value);
+    if (clickedEntityObject.value) {
+      const nodeId = clickedEntityObject.value[0].id;
+      const elementId = clickedEntityObject.value[1];
+
+      console.log(nodeId);
+      console.log(elementId);
+
+      let node = cy.getElementById(nodeId);
+      node.data("correspondingText", elementId);
+    }
+};
+
 // annotation_resultを監視する
 watch(annotation_result.value, (newValue, oldValue) => {
   // annotation_resultが変更された際に実行される処理
   updateGraphDataWithAnnotation();
 });
+/*
+//clickedEntityObjectを監視し、変更があれば該当ノードにテクストエレメントIDを追加する
+watch(clickedEntityObject.value, (newValue, oldValue) => {
+    updateNodeTextLink();
+  });*/
 
 onMounted(() => {
+
+  watch(clickedEntityObject, (newValue, oldValue) => {
+    updateNodeTextLink();
+  }, {deep: true});
+
   cy = cytoscape({
     container: cyElement.value,
     elements: [],
@@ -659,6 +685,8 @@ onMounted(() => {
 
   //cy.on('click', 'node, edge', (event) => {
   cy.on("click", "node", (event) => {
+    clickedNode.value = null;
+
     const node = event.target;
     console.log(node)
     const nodeId = node.id();
@@ -692,6 +720,7 @@ onMounted(() => {
         cy.getElementById(removedNode.id).removeClass("selected");
       }
       selectedNodes.value.push({ id: nodeId, shape: nodeShape });
+      clickedNode.value = node.data();
       node.addClass("selected");
     }
   });
@@ -731,6 +760,7 @@ onMounted(() => {
     });
     handleMouseover(event, selectedElement.value);
     console.log(selectedElement.value);
+    //clickedNodeLabel.value = selectedElement.value.label;
   });
 
   cy.on("mouseover", "edge", (event) => {
@@ -828,7 +858,7 @@ const handleMouseover = (event, nodeData) => {
           key !== "type" &&
           key !== "label" &&
           key !== "shape" &&
-          key !== "correspondingImage" &&
+          key !== "correspondingText" &&
           key !== "descriptionStart" &&
           key !== "descriptionEnd" &&
           value
@@ -850,7 +880,7 @@ const handleMouseover = (event, nodeData) => {
           key !== "type" &&
           key !== "label" &&
           key !== "shape" &&
-          key !== "correspondingImage" &&
+          key !== "correspondingText" &&
           value
         ) {
           // キー名をラベルとして、値を表示
@@ -1309,9 +1339,9 @@ function convertToTurtle(nodes, edges) {
     properties.push(
       `  <https://junjun7613.github.io/MicroKnowledge/himiko.owl#label> "${node.label}"`
     );
-    if (node.correspondingImage) {
+    if (node.correspondingText) {
       properties.push(
-        `  <https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasVisualDescription> <${node.correspondingImage}>`
+        `  <https://junjun7613.github.io/MicroKnowledge/himiko.owl#hasTextualDescription> <${node.correspondingText}>`
       );
     };
     if (node.descriptionStart) {
@@ -1484,6 +1514,8 @@ const loadGraphData = (data) => {
     cy.add(nodes);
     cy.add(edges);
     cy.layout({ name: "preset" }).run(); // レイアウトを更新
+
+    uploadedNodes.value = nodes;
   }
 };
 

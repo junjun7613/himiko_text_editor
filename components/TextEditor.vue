@@ -2,7 +2,7 @@
 import CETEI from "CETEIcean";
 import { v4 as uuidv4 } from "uuid";
 
-const { startToEndList,selectedNodeStartToEndList } = useEditor();
+const { startToEndList,selectedNodeStartToEndList, clickedEntityObject, clickedNode, uploadedNodes } = useEditor();
 
 const teiHTML = ref<string>("");
 const text = ref("");
@@ -12,6 +12,36 @@ const startToEnd = ref([]);
 
 const inputXMLUrl = ref(""); // ユーザーが入力するManifestのURL
 const xml = ref("");
+
+const linkingNodeElement = ref(false);
+
+const elementId = ref("");
+const elementText = ref("");
+
+watch(uploadedNodes, () => {
+  console.log(uploadedNodes.value);
+  let uploadedXml = "";
+  for (const node of uploadedNodes.value) {
+    const data = node.data;
+    for (const key in data) {
+      if (key === "correspondingText" || key === "descriptionStart" || key === "descriptionEnd") {
+        if (uploadedXml === "") {
+          uploadedXml = data[key].split("#")[0];
+        }
+      }
+    }
+  };
+  inputXMLUrl.value = uploadedXml;
+
+  CETEIcean.getHTML5(inputXMLUrl.value, (data: HTMLElement) => {
+    teiHTML.value = data.outerHTML;
+  });
+
+  const teiContainer = document.querySelector('.tei-container');
+  if (teiContainer) {
+    teiContainer.addEventListener('scroll', handleScroll);
+  }
+});
 
 watch(selectedNodeStartToEndList, (newVal) => {
   if (newVal.length === 2) {
@@ -141,20 +171,28 @@ function addCElementToXml(xmlString: string) {
 const CETEIcean = new CETEI();
 let behaviors = {
     "tei": {
-      "placeName": function(element) {
+      "persName": function(element) {
       // placeNameの内容をラップするspan要素を作成
       let span = document.createElement("span");
-      span.className = "place-name-highlight";
+      span.className = "person-name-highlight";
       span.style.backgroundColor = "green"; // 背景色を緑に設定
       span.style.color = "white"; // テキストの色を白に設定
       // 元のエレメントの子ノードを新しいspanに移動
       while (element.firstChild) {
         span.appendChild(element.firstChild);
       }
+      // クリックイベントを追加
+      span.addEventListener("click", function() {
+        console.log("[persName] " + element.textContent);
+        elementText.value = "<persName>" + element.textContent + "</persName>";
+        elementId.value = inputXMLUrl.value + "#" + element.textContent;
+        //elementId.value = element.getAttribute("xml:id");
+        linkingNodeElement.value = true;
+      });
       // この新しいエレメント（span）を返す
       return span;
       },
-      "time": function(element) {
+      "date": function(element) {
       // placeNameの内容をラップするspan要素を作成
       let span = document.createElement("span");
       span.className = "time-highlight";
@@ -164,6 +202,15 @@ let behaviors = {
       while (element.firstChild) {
         span.appendChild(element.firstChild);
       }
+      // クリックイベントを追加
+      span.addEventListener("click", function() {
+        console.log("[time] " + element.textContent);
+        elementText.value = "<date>" + element.textContent + "</date>";
+        elementId.value = inputXMLUrl.value + "#" + element.textContent;
+        //elementId.value = element.getAttribute("xml:id");
+        linkingNodeElement.value = true;
+      });
+      
       // この新しいエレメント（span）を返す
       return span;
       },
@@ -271,8 +318,14 @@ function highlightSelection() {
   selection.removeAllRanges(); // 選択状態をクリア
 }
 */
+function changeClickedEntityObject() {
+  clickedEntityObject.value = [clickedNode.value, elementId.value];
+  linkingNodeElement.value = false;
+
+}
 </script>
 <template>
+  <!--{{clickedNode}}-->
     <client-only>
       <!--{{selectedNodeStartToEndList}}-->
       <v-text-field
@@ -299,6 +352,24 @@ function highlightSelection() {
         <!--<div id="tei" v-html="teiHTML" style="width: 100%; height: 650px;" @mouseup="highlightSelection"/>-->
       </div>
     </client-only>
+    <!--ノードとエレメントの接続ダイアログ-->
+  <v-dialog
+  v-model="linkingNodeElement"
+  persistent
+  max-width="500px"
+  max-height="600px"
+>
+  <v-card>
+    <v-card-title>以下のノードとTEIエレメントを接続します</v-card-title>
+    <v-card-text>
+      ノード：{{clickedNode.label}} ←→ {{ elementText }}
+    </v-card-text>
+    <v-card-actions>
+      <v-btn @click="changeClickedEntityObject()">更新</v-btn> <!-- ここを変更 -->
+      <v-btn @click="linkingNodeElement = false">閉じる</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
   </template>
   <style>
   .title {
