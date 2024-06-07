@@ -302,6 +302,21 @@
             class="mb-4"
           />
         </div>
+        <div
+          v-else-if="
+            selectedNodes.length === 2 &&
+            selectedNodes[0].shape === 'entity' &&
+            selectedNodes[1].shape === 'entity'
+          "
+        >
+          <treeselect
+            :multiple="false"
+            :options="entityRelationSelect"
+            placeholder="Select property type"
+            v-model="edgeType"
+            class="mb-4"
+          />
+        </div>
         <div v-else>
           <treeselect
             :multiple="false"
@@ -479,6 +494,7 @@ import {
   defaultNodeTypeSelect,
   defaultEntityTypeSelect,
   defaultEdgeTypeSelect,
+  defaultEntityRelationSelect,
   defaultFactoidRelationSelect,
   defaultEntityData,
   defaultNodeData,
@@ -500,6 +516,7 @@ const colors = ref(defaultColors);
 const nodeTypeSelect = ref(defaultNodeTypeSelect);
 const entityTypeSelect = ref(defaultEntityTypeSelect);
 const edgeTypeSelect = ref(defaultEdgeTypeSelect);
+const entityRelationSelect = ref(defaultEntityRelationSelect);
 const factoidRelationSelect = ref(defaultFactoidRelationSelect);
 const origEntityData = ref(defaultEntityData);
 const origNodeData = ref(defaultNodeData);
@@ -1564,6 +1581,9 @@ const updateSettings = (type, data) => {
       break;
     case "EdgeTypeSelect":
       edgeTypeSelect.value = data["data"];
+      break;
+    case "EntityRelationSelect":
+      entityRelationSelect.value = data["data"];
       break;
     case "FactoidRelationSelect":
       factoidRelationSelect.value = data["data"];
